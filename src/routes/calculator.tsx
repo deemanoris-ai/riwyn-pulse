@@ -24,7 +24,7 @@ export const Route = createFileRoute("/calculator")({
       },
     ],
   }),
-  component: CalculatorPage;
+  component: CalculatorPage,
 });
 
 const STATUS = {
