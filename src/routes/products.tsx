@@ -55,7 +55,10 @@ function ProductsPage() {
       .from("products")
       .insert({ ...draft, sku: draft.sku || null } as never);
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     setDraft({ ...BLANK });
     invalidate();
     toast.success("Product added.");
@@ -63,13 +66,19 @@ function ProductsPage() {
 
   async function patch(id: string, values: Partial<Product>) {
     const { error } = await supabase.from("products").update(values as never).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     invalidate();
   }
 
   async function remove(id: string) {
     const { error } = await supabase.from("products").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     invalidate();
     toast.success("Product deleted. Past daily records keep their snapshotted costs.");
   }
